@@ -1,0 +1,10 @@
+{0,Beilharz,Linda,76587.80}
+{1,Patterson,Diana,464900.00}
+{2,Barbalet,Tom,99999.99}
+{3,Fielding,Una Lucy,76000.00}
+{4,Andrews,Peter,102000.00}
+{5,Macnamara,Jean,45000.00}
+{6,de Laeter,John Robert,464900.00}
+{7,Arblaster,Julie,164475}
+{8,Bazeley,Percival,64000.68}
+{9,Denton,Derek,65000.00}
