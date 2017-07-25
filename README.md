@@ -21,9 +21,9 @@ To build the demo, simply execute the following:
 ```bash
 git clone https://github.com/cjdb/basic_project.git
 cd basic_project
-mkdir build
-cd build
-cmake -DCMAKE_CXX_COMPILER=`which <your compiler here>` ..
+mkdir -p build/debug
+cd build/debug
+cmake -DCMAKE_CXX_COMPILER=`which <your compiler here>` ../..
 make && make test
 ```
 
@@ -173,7 +173,7 @@ int main()
    CHECK(v.size() == 10u);
 
    v.emplace_back("Smith", "John", 123'456.00);
-   CHECK(v.size() == 11u);
+   CHECK(v.size() == 11u);
 
    std::sort(std::begin(v), std::end(v), [](const auto& a, const auto& b) {
          return a.salary() < b.salary(); });
@@ -199,6 +199,23 @@ model.
 
 `test_result` will just return the number of `CHECK`s that have failed. Recall that CMake considers
 a nonzero return value from `main` to be a failure, as well as an abnormal exit.
+
+## Debug and release builds
+
+By default, CMake builds `basic_project` in debug mode. This means that you can run a debugger
+(e.g GDB), and write assertions. However, this isn't the build line that your programs should
+be running with in production, and I find it doubtful that a course will test with the debug build.
+To build for a release, you'll need to do this from the root directory:
+
+```bash
+mkdir -p build/releass
+cd build/release
+cmake -DCMAKE_CXX_COMPILER=`which compiler` -DCMAKE_BUILD_TYPE=Release ../.. 
+make && make test
+```
+
+If you wish to dictate your sanitizers, you can add the flag `-DSANITIZER="your sanitizer options here"`.
+Add this to either a debug or release CMake line.
 
 ## Conclusion
 
