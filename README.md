@@ -23,7 +23,7 @@ git clone https://github.com/cjdb/basic_project.git
 cd basic_project
 mkdir -p build/debug
 cd build/debug
-cmake -DCMAKE_CXX_COMPILER=`which <your compiler here>` ../..
+cmake -DCMAKE_CXX_COMPILER=`which <your compiler here>` -DCMAKE_BUILD_TYPE=Debug ../..
 make && make test
 ```
 
@@ -202,7 +202,7 @@ a nonzero return value from `main` to be a failure, as well as an abnormal exit.
 
 ## Debug and release builds
 
-By default, CMake builds `basic_project` in debug mode. This means that you can run a debugger
+Our initial setup tells CMake to build `basic_project` in debug mode. This means that you can run a debugger
 (e.g GDB), and write assertions. However, this isn't the build line that your programs should
 be running with in production, and I find it doubtful that a course will test with the debug build.
 To build for a release, you'll need to do this from the root directory:
