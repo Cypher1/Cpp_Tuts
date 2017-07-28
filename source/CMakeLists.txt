@@ -1,3 +1,1 @@
-add_subdirectory(demo)
-
-add_library(demo STATIC $<TARGET_OBJECTS:demo.employee>)
+add_subdirectory(tut1)
