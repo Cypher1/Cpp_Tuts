@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+test "$#" -eq 0 && echo "Requires program name" && exit 1
+
+dirname=${PWD##*/}
+
+cd ../..
+mkdir -p build/debug
+cd build/debug
+cmake -DCMAKE_CXX_COMPILER=`which g++` -DCMAKE_BUILD_TYPE=Debug ../..
+
+make || exit 1
+cd ../../source/$dirname
+if [ "$#" -eq "1" ]
+then
+    "../../build/debug/source/$dirname/$1"
+else
+    cat "$2.dat" | "../../build/debug/source/$dirname/$1"
+fi
