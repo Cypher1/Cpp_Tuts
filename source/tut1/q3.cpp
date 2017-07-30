@@ -1,42 +1,46 @@
-#include <iostream>
-#include <fstream>
-#include <cstdio>
+/*
+TODO: this needs to be put in the header file
 
-// Note: usually good practice to include your own header files after
-// the standard ones.
+namespace cs6771 {
+    void order3(int *a, int *b, int *c) {
+        if (*a < *c) {
+            int t = *a;
+            *a = *c;
+            *c = t;
+        }
+        if (*a < *b) {
+            int t = *a;
+            *a = *b;
+            *b = t;
+        }
+        if (*b < *c) {
+            int t = *b;
+            *b = *c;
+            *c = t;
+        }
+    }
+}
 
-#include "cs6771.h"
+namespace cs6771 {
+    void order3(unsigned int& a, unsigned int& b, unsigned int& c) {
+        if (a > c) {
+            int t = a;
+            a = c;
+            c = t;
+        }
+        if (b > c) {
+            int t = b;
+            b = c;
+            c = t;
+        }
+        if (a > b) {
+            int t = a;
+            a = b;
+            b = t;
+        }
+    }
+}
+*/
 
-int main(int args, char* argv[])
-{
-    int i1, i2, i3;
-    unsigned int ui1, ui2, ui3;
-    std::ofstream outputs;
-    std::ifstream inputs;
-
-    std::cout << "Enter three integers: " << std::flush;
-    std::cin >> i1 >> i2 >> i3;
-
-    cs6771::order3(&i1,&i2,&i3);
-
-    // Open/create
-    //outputs.open("tmp.txt");
-
-    // Note: Could also explicitly open in truncation mode
-    outputs.open("tmp.txt", std::ofstream::trunc);
-
-    outputs << i1 << " " << i2 << " " << i3 << std::endl;
-    outputs.close();
-
-
-    inputs.open("tmp.txt");
-    inputs >> ui1 >> ui2 >> ui3;
-    inputs.close();
-
-    cs6771::order3(ui1,ui2,ui3);
-
-    std::cout << "Output: " << ui1 << " " << ui2 << " " << ui3 << std::endl;
-
-    // To be good we remove the file
-    std::remove("tmp.txt");
+int main() {
 }

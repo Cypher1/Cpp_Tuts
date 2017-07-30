@@ -13,7 +13,7 @@
 #
 cmake_minimum_required(VERSION 3.4.3)
 
-project(project_name_here CXX)
+project(tutorials CXX)
 
 enable_testing()
 include(CTest)

@@ -1,7 +1,3 @@
-#include <iostream>
-#include <fstream>
-
-
 namespace cs6771 {
     void order3(int *a, int *b, int *c) {
         if (*a < *c) {
@@ -23,21 +19,5 @@ namespace cs6771 {
 }
 
 
-int main(int args, char* argv[])
-{
-    int i1, i2, i3;
-
-    std::cout << "Enter three integers: " << std::flush;
-
-    std::cin >> i1 >> i2 >> i3;
-
-    std::cout << "Input: " << i1 << " " << i2 << " " << i3 << std::endl;
-
-    cs6771::order3(&i1,&i2,&i3);
-
-    std::cout << "Output: " << i1 << " " << i2 << " " << i3 << std::endl;
-
-    std::ofstream result("tmp.txt");
-
-    result << i1 << " " << i2 << " " << i3 << std::endl;
+int main() {
 }
