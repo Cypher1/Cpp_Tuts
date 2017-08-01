@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 test "$#" -eq 0 && echo "Requires program name" && exit 1
 
