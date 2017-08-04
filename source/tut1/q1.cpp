@@ -1,3 +1,4 @@
+#include <fstream>
 #include <iostream>
 
 namespace cs6771 {
@@ -21,6 +22,14 @@ void order3(int *a, int *b, int *c) {
 }
 
 int main() {
-  std::cout << "RUNNING q1!\n";
+  int a, b, c;
+  if (!(std::cin >> a >> b >> c))
+    throw std::invalid_argument("Not numbers");
+
+  cs6771::order3(&a, &b, &c);
+  std::cout << a << ' ' << b << ' ' << c << '\n';
+  
+  std::ofstream f{"output.txt"};
+  f << a << ' ' << b << ' ' << c << '\n';
   return 0;
 }

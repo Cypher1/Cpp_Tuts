@@ -1,3 +1,4 @@
+#include <fstream>
 #include <iostream>
 
 namespace cs6771 {
@@ -21,6 +22,12 @@ void order3(unsigned int& a, unsigned int& b, unsigned int& c) {
 }
 
 int main() {
-  std::cout << "RUNNING q2!\n";
+  std::ifstream f{"output.txt"};
+  unsigned int a, b, c;
+  if (!(f >> a >> b >> c))
+    throw std::invalid_argument("Not numbers");
+  cs6771::order3(a, b, c);
+
+  std::cout << a << ' ' << b << ' ' << c << '\n';
   return 0;
 }
