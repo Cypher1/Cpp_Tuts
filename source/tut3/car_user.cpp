@@ -25,9 +25,10 @@ int main() {
   
   five = std::move(six);
   std::cout << Car::getObjectCount() << std::endl;
-  
+ 
+  /*
   double averageNumberOfSeats = 3.2;
-  const char* carName = "Average Car";
-  Car seven ( std::string{carName}, static_cast<int>(averageNumberOfSeats) );
+  Car seven ( std::string("Average Car"), int(averageNumberOfSeats) );
   seven.getManufacturer();
+  */
 }
