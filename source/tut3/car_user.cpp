@@ -1,7 +1,7 @@
 #include "car.hpp"
 
 int main() {
-  Car one;
+/*  Car one;
   Car two{"Toyota",5};
   
   std::cout << Car::getObjectCount() << std::endl;
@@ -25,7 +25,7 @@ int main() {
   
   five = std::move(six);
   std::cout << Car::getObjectCount() << std::endl;
- 
+*/ 
   /*
   double averageNumberOfSeats = 3.2;
   Car seven ( std::string("Average Car"), int(averageNumberOfSeats) );
