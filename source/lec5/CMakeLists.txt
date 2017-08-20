@@ -1,0 +1,5 @@
+add_executable(construction construction.cpp)
+add_executable(destruction destruction.cpp)
+add_executable(catchByReference catchByReference.cpp)
+add_executable(catchByValue catchByValue.cpp)
+add_executable(stackUnwinding stackUnwinding.cpp)
