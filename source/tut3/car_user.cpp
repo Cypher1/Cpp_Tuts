@@ -1,8 +1,11 @@
 #include "car.hpp"
 
+#include <iostream>
+
 int main() {
-/*  Car one;
-  Car two{"Toyota",5};
+  Car one;
+  const Car two{"Toyota",5};
+  two.getManufacturer();
   
   std::cout << Car::getObjectCount() << std::endl;
   
@@ -25,10 +28,13 @@ int main() {
   
   five = std::move(six);
   std::cout << Car::getObjectCount() << std::endl;
-*/ 
-  /*
+ 
+  
   double averageNumberOfSeats = 3.2;
-  Car seven ( std::string("Average Car"), int(averageNumberOfSeats) );
+  Car seven{
+      "Average Car", 
+      static_cast<unsigned>(averageNumberOfSeats)
+  };
   seven.getManufacturer();
-  */
+  
 }
