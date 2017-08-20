@@ -17,7 +17,8 @@ mkdir -p build/debug
 cd build/debug
 cmake -DCMAKE_CXX_COMPILER=`which g++` -DCMAKE_BUILD_TYPE=Debug "$root"
 
-make || exit 1
+make | grep -v "Built target " || exit 1
+echo ""
 cd "$root"/source/$dirname
 if [ "$#" -eq "1" ]
 then

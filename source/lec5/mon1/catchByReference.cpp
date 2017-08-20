@@ -3,7 +3,7 @@
 class X { 
 public:
   X() { std::cout << "X constructed" << std::endl; }
-  X(const X &x) { std::cout << "X copy-constructed" << std::endl; }
+  X(const X &) { std::cout << "X copy-constructed" << std::endl; }
   ~X() { std::cout << "X destructed" << std::endl; }
 };
 
