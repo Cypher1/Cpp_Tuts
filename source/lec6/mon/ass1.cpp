@@ -7,6 +7,7 @@
 #include <vector>
 
 using command_it = std::vector<std::string>::const_iterator;
+// note: global variables are bad, global constants are not
 constexpr auto n_repeat = 3U;
 constexpr auto n_reverse = 5U;
 
@@ -40,6 +41,7 @@ int main() {
   std::string s;
   std::vector<std::string> commands;
   while (in >> s)
+    // question for you guys: what's the difference between emplace_back and push_back
     commands.emplace_back(std::move(s)); // note the std::move
   
   runcommands(commands.cbegin(), commands.cend());
