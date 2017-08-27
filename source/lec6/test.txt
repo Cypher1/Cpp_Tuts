@@ -1,0 +1,8 @@
+hello
+repeat
+repeatthis
+repeatthis2
+endrepeat
+norepeat
+reverse
+norepeat2
