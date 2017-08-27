@@ -8,10 +8,10 @@ unsigned int School::Student::nextStudentNumber = 9312u;
 bool School::Course::addStudent(std::weak_ptr<Student> wp) { 
   // check that the student isn't already in the course
   auto result = std::find_if(studentsInCourse.begin(),studentsInCourse.end(), [wp] (std::weak_ptr<Student> s) {
-    if ( wp.lock() == s.lock() ) return true;
-    return false;
+    return wp.lock() == s.lock();
   });
-  if (result != studentsInCourse.end()) return false;
+  if (result != studentsInCourse.end())
+    return false;
   // add the student to the course. 
   studentsInCourse.push_back(wp); 
   return true;
@@ -89,7 +89,8 @@ auto School::findCourse(const std::string& courseCode) const -> decltype(courses
     if (c->getCourseCode().compare(courseCode) == 0) return true;
     return false;
   });
-  if (courseObject == courses.end()) throw std::runtime_error("Can't find course " + courseCode);
+  if (courseObject == courses.end())
+    throw std::runtime_error("Can't find course " + courseCode);
   return courseObject;
 }
 
