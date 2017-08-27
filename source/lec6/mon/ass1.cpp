@@ -44,7 +44,7 @@ public:
 
   Num sqrt() {
     if (isDouble)
-      return Num{isDouble};
+      return Num{std::sqrt(dVal)};
     else
       return Num{static_cast<int>(std::sqrt(iVal))};
   }
@@ -85,7 +85,7 @@ Num top_pop(std::vector<Num>& stack) {
 
 void runcommand(std::vector<Num>& stack, const std::string& command) {
   const auto binaryFunction = [&] (const std::function<Num(Num, Num)>& f, char c) {
-    return [&] () {
+    return [&stack, &f, c] () {
       auto lhs = top_pop(stack);
       auto rhs = top_pop(stack);
       stack.push_back(f(lhs, rhs));
@@ -93,28 +93,35 @@ void runcommand(std::vector<Num>& stack, const std::string& command) {
     };
   };
 
-  const std::map<std::string, std::function<void()> commands{
-      {"add", binaryFunction(std::plus<Num, Num>, '+')},
-      {"sub", binaryFunction(std::minus<Num, Num>, '+')},
-      {"mult", binaryFunction(std::multiplies<Num, Num>, '+')},
-      {"div", binaryFunction(std::divides<Num, Num>, '+')},
+  const std::map<std::string, std::function<void()>> commands{
+      {"add", binaryFunction(std::plus<Num>(), '+')},
+      {"sub", binaryFunction(std::minus<Num>(), '-')},
+      {"mult", binaryFunction(std::multiplies<Num>(), '*')},
+      {"div", binaryFunction(std::divides<Num>(), '/')},
       {"reverse", [&] () { std::reverse(stack.rbegin(), stack.rbegin() + top_pop(stack).as_int()); }},
+      {"sqrt", [&] {
+        auto param = top_pop(stack);
+        stack.push_back(param.sqrt());
+        std::cout << "sqrt " << param << " = " << stack.back() << '\n';
+      }},
+      {"pop", [&] { top_pop(stack); }}
   };
 
-  if (commands.find(command) != commands.end())
+  if (commands.find(command) != commands.end()) {
     commands.at(command)();
-  else if (command.find(".") == std::string::npos)
+  } else if (command.find(".") == std::string::npos) {
     stack.push_back(Num{std::stoi(command)});
-  else
+  } else {
     stack.push_back(Num{std::stod(command)});
+  }
 }
 
 command_it runcommands(command_it start, command_it end, std::vector<Num>& stack, unsigned times = 1) {
   for (auto i = 0U; i < times; ++i) {
     for (auto upto = start; upto != end; ++upto) {
-      if (*upto == "repeat")
-        upto = runcommands(upto + 1, std::find(start, end, "endrepeat"), stack, top_pop(stack).as_int());
-      else
+      if (*upto == "repeat") {
+        upto = runcommands(upto + 1, std::find(upto, end, "endrepeat"), stack, top_pop(stack).as_int());
+      } else
         runcommand(stack, *upto);
     }
   }
@@ -123,6 +130,8 @@ command_it runcommands(command_it start, command_it end, std::vector<Num>& stack
 
 
 int main() {
+  std::cout.setf(std::ios::fixed,std::ios::floatfield);
+  std::cout.precision(3);
   std::ifstream in{"test.txt"};
 
   std::string s;

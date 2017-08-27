@@ -34,13 +34,11 @@ int main() {
   delete pi2;
   delete ps1;
   delete ps2;
+  delete pf;
   delete pci;
   delete pv1;
   delete pv2;
-  delete pv2; // whoops
 
-  // did you notice we forgot to delete pf?
-  
   auto p1 = new int[5];
   auto p2 = new int[5]{};
   
@@ -57,11 +55,10 @@ int main() {
   auto p4 = new int[5]{0, 2, 3, 4, 5};
   auto s4 = new std::string[5]{"abc"};
 
-  // all of these are undefined behaviour (why), but they all compile
-  delete p1;
-  delete p2;
-  delete p4;
-  delete s1;
-  delete s2;
-  delete s4;
+  delete[] p1;
+  delete[] p2;
+  delete[] p4;
+  delete[] s1;
+  delete[] s2;
+  delete[] s4;
 }

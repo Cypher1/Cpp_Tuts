@@ -19,10 +19,10 @@ void test_lambda();
 
 int main()
 {
-//  tute_question();
-//  test_overload();
-//  test_mystring();
-//  test_lambda();
+  tute_question();
+  test_overload();
+  test_mystring();
+  test_lambda();
   return 0;
 }
 
@@ -30,7 +30,7 @@ int main()
  * The basic of the tute question
  ********************************************************************/
 
-/*void tute_question()
+void tute_question()
 {
   std::vector<Book> books1 =
     { {"Book1", "Author1", 2222, 12.2},
@@ -51,11 +51,15 @@ int main()
         << " books2" << std::endl << std::endl;
 
   // sort using the normal method for sorting books
+  std::sort(books1.begin(), books1.end());
   print("Default (ISBN) sorted books:", books1);
 
   // sort by price
+  std::sort(books1.begin(), books1.end(), [] (const auto& b1, const auto& b2) {
+    return b1.getPrice() < b2.getPrice();
+  });
   print("Price sorted books:", books1);
-} */
+}
 
 
 /********************************************************************
@@ -63,7 +67,7 @@ int main()
  * overload operator.
  ********************************************************************/
 
-/*
+
 void test_overload()
 {
   Book book{"Book1", "Author1", 2222, 12.2};
@@ -83,14 +87,14 @@ void test_overload()
   std::cout << "Using operator std::string() => "
         << static_cast<std::string>(book) << std::endl;
   std::cout << std::endl;
-} */
+}
 
 
 
 /********************************************************************
  * helper to print a list of books
  ********************************************************************/
-/*
+
 void print(const std::string& title, const std::vector<Book>& books)
 {
   std::cout << title << std::endl;
@@ -101,7 +105,7 @@ void print(const std::string& title, const std::vector<Book>& books)
   }
   std::cout << std::endl;
 }
-*/
+
  /********************************************************************
  * Test showing the difference between member and non-member
  * comparison overloading.
@@ -143,7 +147,7 @@ void test_mystring()
  /********************************************************************
  * Test showing the lambda capturing.
  ********************************************************************/
-/*
+
 void special_sort(std::vector<Book>& books, const std::string& special)
 {
   std::sort(books.begin(), books.end(),
@@ -170,6 +174,6 @@ void special_sort(std::vector<Book>& books, const std::string& special)
 
   print("Post special sort", books);
 }
-*/
+
 
 
