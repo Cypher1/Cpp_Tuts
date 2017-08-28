@@ -45,12 +45,14 @@ constexpr auto make_powers(int size, int base) {
   return arr;
 }
 
+
 constexpr auto make_powers2(std::array<int, 10>& arr, int base) {
   arr[0] = 1;
   for (auto i = 1U; i < arr.size(); ++i)
     arr[i] = arr[i - 1] * base;
 }
 */
+
 
 constexpr auto make_powers3(std::array<int, 10>& arr, int base) {
   std::get<0>(arr) = 1;
@@ -70,18 +72,20 @@ int main() {
   constexpr auto max_files_constexpr = max_files;
   std::array<int, max_files_constexpr> a2;
 
+  
   /*
   constexpr auto max_files_fn = get_max_files();
   constexpr auto max_files_fn2 = get_max_files_const();
   */
+  
   constexpr auto max_files_fn3 = get_max_files_constexpr();
   const auto limit = max_files + 1;
-  auto staff_size = 27;
+  const auto staff_size = 27;
 
   const int *p = nullptr; // pointer to a const int
   int *const p2 = nullptr; // const pointer to int
   constexpr int *q = nullptr; // constexpr refers to top level const. This is a const pointer to int
 
-  // constexpr auto* p1 = &staff_size;
+//   constexpr auto* p1 = &staff_size;
    constexpr auto* p3 = &global;
 }
