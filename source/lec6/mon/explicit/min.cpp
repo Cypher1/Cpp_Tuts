@@ -11,3 +11,10 @@ T Min(T a, T b) {
 template int Min<int>(int, int);
 template double Min<double>(double, double);
 */
+
+auto f(bool b) {
+  if (b) {
+    return 0;
+  } else
+    return "";
+}

@@ -13,7 +13,7 @@ int main() {
   std::string s1 = "xyz";
   std::string s2 = "abcd";
   std::cout << minTD(s1, s2, cmpstr) << std::endl;
-  // pass in a lamda
+  // pass in a lambda
   std::cout << minTD(s1, s2, [](std::string a, std::string b) { 
     return a.size() < b.size(); } 
   ) << std::endl;
