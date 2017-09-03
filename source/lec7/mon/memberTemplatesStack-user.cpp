@@ -1,8 +1,8 @@
 #include "memberTemplatesStack.hpp"
 
 int main() {
-  float a[] = {1.1, 2.2, 3.3}; 
-  Stack<float> fs(a, a+3);  
+  double a[] = {1.1, 2.2, 3.3}; 
+  Stack<double> fs(a, a+3);  
   // instantiate Stack<float, deque<float>>(float*, float*)
 
   fs.assign(a, a+3);

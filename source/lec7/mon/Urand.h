@@ -11,12 +11,11 @@
 #include <cstdlib>
 #include <ctime>
 using std::size_t;
-using std::bitset;
 
 template<size_t UpperBound> class Urand {
-  bitset<UpperBound> used;
+  std::bitset<UpperBound> used;
 public:
-  Urand() { srand(time(0)); } // Randomize
+  Urand() { srand(static_cast<unsigned>(time(0))); } // Randomize
   size_t operator()(); // The "generator" function
 };
 

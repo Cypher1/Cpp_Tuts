@@ -1,5 +1,4 @@
-#ifndef DEFAULTARGUMENTSTACK_HPP
-#define DEFAULTARGUMENTSTACK_HPP
+#pragma once
 
 #include <iostream>
 #include <deque>
@@ -52,5 +51,3 @@ std::ostream& operator<<(std::ostream &os, const Stack<T, CONT> &s) {
   }
   return os;
 }
-
-#endif

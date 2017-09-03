@@ -43,7 +43,7 @@ template <typename T2, typename CONT2>
 Stack<T,CONT>::Stack(const Stack<T2,CONT2> & s) {
   Stack<T2,CONT2> tmp(s);
   while (!tmp.empty()) {
-    stack_.push_front(tmp.top());
+    stack_.push_front(static_cast<T>(tmp.top()));
     tmp.pop();
   }
 }
@@ -52,7 +52,7 @@ template <typename T, typename CONT>
 template <typename T2, typename CONT2>
 Stack<T,CONT>::Stack(Stack<T2,CONT2> && s) {
   while (!s.empty()) {
-    stack_.push_front(s.top());
+    stack_.push_front(static_cast<T>(s.top()));
     s.pop();
   }
 }
@@ -75,7 +75,7 @@ Stack<T,CONT>::operator=(const Stack<T2,CONT2> & s) {
   Stack<T2,CONT2> tmp(s);
   stack_.clear();
   while (!tmp.empty()) {
-    stack_.push_front(tmp.top());
+    stack_.push_front(static_cast<T>(tmp.top()));
     tmp.pop();
   }
   return *this;
@@ -91,7 +91,7 @@ Stack<T,CONT>::operator=(Stack<T2,CONT2> && s) {
 
   stack_.clear();
   while (!s.empty()) {
-    stack_.push_front(s.top());
+    stack_.push_front(static_cast<T>(s.top()));
     s.pop();
   }
   return *this;

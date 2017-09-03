@@ -13,7 +13,7 @@ int main() {
   Sortable<int> is;
   Urand<47> rnd;
   for(std::size_t i = 0; i < 15; ++i)
-    is.push_back(rnd());
+    is.push_back(static_cast<int>(rnd()));
   std::cout << "Random numbers: ";
   for(std::size_t i = 0; i < is.size(); ++i)
     std::cout << is[i] << ' ';

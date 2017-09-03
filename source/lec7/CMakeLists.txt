@@ -1,1 +1,7 @@
-add_executable(defaultStack mon/stack.hpp mon/stack-user.cpp)
+add_executable(defaultstack mon/stack.hpp mon/stack-user.cpp)
+add_executable(movestack mon/moveSemanticsStack-user.cpp mon/memberTemplatesStack.hpp)
+add_executable(staticstack mon/staticStack.hpp mon/staticStack-user.cpp)
+add_executable(ttp1 mon/ttp1-user.cpp mon/ttpStack.hpp)
+add_executable(ttp2 mon/ttp2-user.cpp mon/ttpStack.hpp)
+add_executable(membertemplates mon/memberTemplatesStack.hpp mon/memberTemplatesStack-user.cpp)
+add_executable(sortable mon/Sortable.h mon/sortable-user.cpp mon/Urand.h)
