@@ -56,7 +56,7 @@ private:
     void printTimetable() const;
     
     // method to take ownership of a locker object
-    void assignLocker(std::unique_ptr<Locker> locker) {
+    void assignLocker(std::unique_ptr<Locker>&& locker) {
       assignedLocker = std::move(locker);
     }
     

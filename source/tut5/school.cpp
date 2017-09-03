@@ -20,9 +20,9 @@ bool School::Course::addStudent(std::weak_ptr<Student> wp) {
 // method to print the students in a course
 void School::Course::printRoll() const {
   std::cout << courseCode << " Roll" << std::endl;
-  for (auto wp : studentsInCourse) {
-    // TODO: print the names of the students in the course
-    // std::cout << sp->getName() << std::endl;
+  for (const auto& wp : studentsInCourse) {
+    if (auto sp = wp.lock())
+      std::cout << sp->getName() << std::endl;
   }
 }
 
@@ -30,8 +30,18 @@ void School::Course::printRoll() const {
 // Pre-Condition: The student has already been enrolled in the course. 
 // Pre-Condition: The student hasn't already had this course added to their timetable
 bool School::Student::addCourse(std::weak_ptr<Course> wp) { 
-  coursesEnrolledIn.push_back(wp);
-  return true;
+  if (auto sp = wp.lock()) {
+    const auto f = [&sp] (const auto& wp) {
+      if (auto course = wp.lock())
+        return sp->getCourseCode() == course->getCourseCode();
+      return false;
+    };
+    if (std::find_if(coursesEnrolledIn.cbegin(), coursesEnrolledIn.cend(), f) != coursesEnrolledIn.cend())
+      return false;
+    coursesEnrolledIn.push_back(wp);
+    return true;
+  }
+  return false;
 }
 
 // method to print a student's timetable
@@ -65,7 +75,8 @@ void School::addStudentToCourse(unsigned int id, const std::string& courseCode) 
   // then return false.
   
   // add the course object to a student's object
-  studentObject->addCourse(*courseObject);
+  if (!studentObject->addCourse(*courseObject))
+    throw std::runtime_error("Student is already enrolled in this course");
 }
 
 // method to transfer ownership of a locker to a student if 
@@ -73,7 +84,7 @@ void School::addStudentToCourse(unsigned int id, const std::string& courseCode) 
 bool School::assignLocker(unsigned int id) {
   auto studentObject = findStudent(id);
   if ( lockers.size() > 0u) {
-    // TODO: assign the locker to the student
+    studentObject->assignLocker(std::move(lockers.back()));
     lockers.pop_back();
     return true;
   }

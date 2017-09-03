@@ -1,52 +1,52 @@
-#ifndef STACK_HPP
-#define STACK_HPP
+#ifndef DEFAULTARGUMENTSTACK_HPP
+#define DEFAULTARGUMENTSTACK_HPP
 
 #include <iostream>
-#include <vector>
+#include <deque>
 
-template <typename> class Stack;
+template <typename,typename> class Stack;
 
-template <typename T> std::ostream& operator<< (std::ostream &os, const Stack<T> &s);
+template <typename T, typename CONT> std::ostream& operator<< (std::ostream &os, const Stack<T, CONT> &s);
 
-template <typename T> class Stack {
+template <typename T, typename CONT = std::deque<T>> class Stack {
 public:
-  friend std::ostream& operator<<<T>(std::ostream &, const Stack<T> &);
+  friend std::ostream& operator<<<T>(std::ostream &, const Stack<T, CONT> &);
   void push(const T &);
   void pop();
   T& top();
   const T& top() const;
   bool empty() const;
 private:
-  std::vector<T> stack_;
+  CONT stack_;
 };
 
-template <typename T>
-void Stack<T>::push(const T &item) {
+template <typename T, typename CONT>
+void Stack<T, CONT>::push(const T &item) {
   stack_.push_back(item);
 }
 
-template <typename T>
-void Stack<T>::pop() {
+template <typename T, typename CONT>
+void Stack<T, CONT>::pop() {
   stack_.pop_back();
 }
 
-template <typename T>
-T& Stack<T>::top() {
+template <typename T, typename CONT>
+T& Stack<T, CONT>::top() {
   return stack_.back();
 }
 
-template <typename T>
-const T& Stack<T>::top() const {
+template <typename T, typename CONT>
+const T& Stack<T, CONT>::top() const {
   return stack_.back();
 }
 
-template <typename T>
-bool Stack<T>::empty() const {
+template <typename T, typename CONT>
+bool Stack<T, CONT>::empty() const {
   return stack_.empty();
 }
 
-template <typename T>
-std::ostream& operator<<(std::ostream &os, const Stack<T> &s) {
+template <typename T, typename CONT>
+std::ostream& operator<<(std::ostream &os, const Stack<T, CONT> &s) {
   for (unsigned int i = 0; i < s.stack_.size(); i++) {
     os << s.stack_[i] << " ";
   }
