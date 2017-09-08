@@ -10,7 +10,7 @@ std::unique_ptr<T> make_unique(T t) {
 
 template <typename T>
 std::unique_ptr<T> make_unique(std::unique_ptr<T>& up) {
-  return std::unique_ptr<T>(new T(*up));
+  return make_unique(*up);;
 } 
 
 // TODO: extension exercise: make a variadic version of make_unique that works same way as in standard library. Why can't we deduce template parameter?
@@ -20,7 +20,9 @@ T getBase(T t) {
   return t;
 }
 
-// TODO: write getbase on const char* *here* to return a std::string. Under what circumstances does where we write it change the results?
+const char* getBase(const char* t) {
+  return t;
+}
 
 template <typename T>
 auto getBase(T *t) -> decltype(*t) {
