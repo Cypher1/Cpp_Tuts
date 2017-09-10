@@ -4,6 +4,7 @@ add_subdirectory(tut3)
 add_subdirectory(tut4)
 add_subdirectory(tut5)
 add_subdirectory(tut6)
+add_subdirectory(tut7)
 
 add_subdirectory(lec4)
 add_subdirectory(lec5)
