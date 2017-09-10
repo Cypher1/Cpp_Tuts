@@ -1,5 +1,6 @@
-#include <iostream>
 #include <algorithm>
+#include <forward_list>
+#include <iostream>
 
 #include "list.hpp"
 
@@ -12,11 +13,22 @@ last_value(InputIterator  first, InputIterator last) {
   return result;
 } 
 
+template <typename BidirectionalIterator>
+void myreverse(BidirectionalIterator begin, BidirectionalIterator end) {
+  while ((begin != end) && (begin != --end)) {
+    std::swap(*begin, *end);
+    ++begin;
+  }
+}
+
 int main() {
   List<int>  l;
 
   l.push_back(4);
   l.push_back(3);
+
+  std::forward_list<int> fl;
+  // std::reverse(fl.begin(), fl.end());
  
   std::cout << last_value(l.begin(), l.end()) << std::endl;
 }
