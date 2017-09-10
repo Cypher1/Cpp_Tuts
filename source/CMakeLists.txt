@@ -10,4 +10,5 @@ add_subdirectory(lec4)
 add_subdirectory(lec5)
 add_subdirectory(lec6)
 add_subdirectory(lec7)
+add_subdirectory(lec8)
 
