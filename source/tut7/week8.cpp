@@ -56,8 +56,11 @@ int main() {
   
   // add some book objects
   Book harryPotter{"Harry Potter"};
+  Book harryPotter1{"Harry Potter"};
   Book percyJackson{"Percy Jackson"};
   bookLibrary.add(harryPotter);
+  bookLibrary.add(harryPotter);
+  bookLibrary.add(harryPotter1);
   bookLibrary.add(percyJackson);
   
   // create a description and add it between the two books
