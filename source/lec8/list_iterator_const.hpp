@@ -18,11 +18,11 @@ bool operator==(const List_Iterator<T, C>& lhs, const List_Iterator<T, C>& other
 template <typename Base, template <typename U> class Constness = Identity> class List_Iterator {
   using T = typename Constness<Base>::type;
 public:
-  typedef std::ptrdiff_t                     difference_type;
-  typedef std::forward_iterator_tag          iterator_category;
-  typedef T                                  value_type;
-  typedef T*                                 pointer;
-  typedef T&                                 reference;
+  using difference_type = std::ptrdiff_t;
+  using iterator_category = std::forward_iterator_tag;
+  using value_type = T;
+  using pointer = T*;
+  using reference = T&;
 
 
   reference operator*() const { return pointee_->elem_; }

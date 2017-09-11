@@ -7,11 +7,11 @@ template <typename T> class List;
 
 template <typename T> class List_Iterator {
 public:
-  typedef std::ptrdiff_t                     difference_type;
-  typedef std::forward_iterator_tag          iterator_category;
-  typedef T                                  value_type;
-  typedef T*                                 pointer;
-  typedef T&                                 reference;
+  using difference_type = std::ptrdiff_t;
+  using iterator_category = std::forward_iterator_tag;
+  using value_type = T;
+  using pointer = T*;
+  using reference = T&;
 
   reference operator*() const;
   pointer operator->() const { return &(operator*()); }
