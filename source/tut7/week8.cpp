@@ -2,9 +2,9 @@
  * Create a templated value-like library class to store books, movies etc
  * Each library item has the data and a set of related works
  * Each related work object has a ptr to the related works item.
- */ 
+ */
 #include <iostream>
- 
+
 #include "library.hpp"
 
 
@@ -34,7 +34,7 @@ private:
 };
 
 // method to compare books
-bool operator==(const Book& a, const Book & b) {
+bool operator==(const Book& a, const Book& b) {
   return a.name == b.name;
 }
 
@@ -44,16 +44,38 @@ std::ostream& operator<<(std::ostream &os, const Book &b) {
   return os;
 }
 
-// TODO: create this class
 class Movie {
-  
+public:
+  Movie(const std::string& _name, const std::string& _director, int _year) : name{_name}, director{_director}, year{_year} {}
+  friend bool operator==(const Movie&, const Movie&);
+  friend bool operator<(const Movie&, const Movie&);
+  friend std::ostream& operator<<(std::ostream&, const Movie&);
+private:
+  std::string name;
+  std::string director;
+  int year;
 };
 
-int main() {
-  
+// method to compare Movies
+bool operator==(const Movie& a, const Movie& b) {
+  return a.name == b.name && a.director == b.director, a.year == b.year;
+}
+
+// method to compare Movies
+bool operator<(const Movie& a, const Movie& b) {
+  return a.name < b.name;
+}
+
+// method to print the book details
+std::ostream& operator<<(std::ostream &os, const Movie &b) {
+  os << b.name << "(" << b.director << ", " << b.year << ")";
+  return os;
+}
+
+void bookMain() {
   // create a book library
   Library<Book,Description> bookLibrary;
-  
+
   // add some book objects
   Book harryPotter{"Harry Potter"};
   Book harryPotter1{"Harry Potter"};
@@ -62,21 +84,84 @@ int main() {
   bookLibrary.add(harryPotter);
   bookLibrary.add(harryPotter1);
   bookLibrary.add(percyJackson);
-  
+
   // create a description and add it between the two books
   Description d{"Percy Jackson is a similar childrens book that readers of Harry Potter may like"};
   bookLibrary.addRelated(harryPotter,percyJackson,d);
-  
+
   // print books related to Harry Potter
   bookLibrary.printRelated(harryPotter);
-  
+
   std::cout << std::boolalpha << "confirming that Percy Jackson is in library: " << bookLibrary.inLibrary(percyJackson) << std::endl;
-  
+
   // remove Percy Jackson
   std::cout << "number of items in library after removal: " << bookLibrary.remove(percyJackson) << std::endl;
-  
+
   std::cout << std::boolalpha << "confirming that Percy Jackson is in library: " << bookLibrary.inLibrary(percyJackson) << std::endl;
-  
+
   // print books related to Harry Potter
   bookLibrary.printRelated(harryPotter);
+
+  // const auto& bl = bookLibrary;
+
+  // auto it = bl.cbegin();
+  // auto itEnd = bl.cend();
+
+  Library<Book,Description>::iterator nIt = bookLibrary.begin();
+
+  /*if(it != itEnd) {
+    std::cout << "THERE IS SOMETHING IN THE LIBRARY\n";
+  }*/
 }
+
+void movieMain() {
+  // create a Movie library
+  Library<Movie,Description> movieLibrary;
+
+  // add some Movie objects
+  Movie harryPotter{"Harry Potter", "Chris Columbus", 2001};
+  Movie harryPotter1{"Harry Potter", "Chris Columbus", 2001};
+  Movie percyJackson{"Percy Jackson", "Chris Columbus", 2010};
+  movieLibrary.add(percyJackson);
+  movieLibrary.add(harryPotter);
+  movieLibrary.add(harryPotter);
+  movieLibrary.add(harryPotter1);
+
+  // create a description and add it between the two Movies
+  Description d{"Percy Jackson is a similar childrens Movie that readers of Harry Potter may like"};
+  movieLibrary.addRelated(harryPotter,percyJackson,d);
+
+  std::cout << "UNSORTED\n";
+  for(auto& i : movieLibrary) {
+    std::cout << i << "\n";
+  }
+  std::sort(movieLibrary.begin(), movieLibrary.end());
+
+  std::cout << "SORTED?\n";
+  for(auto& i : movieLibrary) {
+    std::cout << i << "\n";
+  }
+
+  // print Movies related to Harry Potter
+  movieLibrary.printRelated(harryPotter);
+
+  std::cout << std::boolalpha << "confirming that Percy Jackson is in library: " << movieLibrary.inLibrary(percyJackson) << std::endl;
+
+  // remove Percy Jackson
+  std::cout << "number of items in library after removal: " << movieLibrary.remove(percyJackson) << std::endl;
+
+  std::cout << std::boolalpha << "confirming that Percy Jackson is in library: " << movieLibrary.inLibrary(percyJackson) << std::endl;
+
+  // print Movies related to Harry Potter
+  movieLibrary.printRelated(harryPotter);
+
+  for(auto& i : movieLibrary) {
+    std::cout << i << "\n";
+  }
+}
+
+int main() {
+  bookMain();
+  movieMain();
+}
+
