@@ -292,7 +292,7 @@ void Library<T,U>::addRelated(const T& from, const T& to, const U& desc) {
 // method to remove an item from the library.
 template <typename T, typename U>
 unsigned int Library<T,U>::remove(const T& t) {
-  items.erase(std::remove_if(items.begin(), items.end(), [&t](const auto& i){ return i.getItem() == t;}), items.end());
+  items.erase(std::remove_if(items.begin(), items.end(), [&t](const Library<T,U>::ItemContainer& i){ return i.getItem() == t;}), items.end());
   return static_cast<unsigned int>(items.size());
 }
 
