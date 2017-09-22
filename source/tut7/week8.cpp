@@ -109,6 +109,35 @@ void bookMain() {
 
   Library<Book,Description>::iterator nIt = bookLibrary.begin();
 
+
+  std::vector<double> vec{1,2,3,4,5};
+  std::vector<double> vec2{7,3,3,3,5};
+
+  std::fill(vec2.begin(), vec2.end(), 3);
+  /// std::copy(vec.begin(), vec.end()-2, vec2.begin());
+  //
+  std::transform(vec.begin(), vec.end(), vec2.begin(), vec.begin(),
+      [](const double& v1, const double& v2){
+        return v1+v2;
+      });
+
+  std::cout << "[";
+  if(vec.size() != 0) {
+    std::cout << vec[0];
+    std::for_each(vec.begin()+1, vec.end(), [](const auto& v) {
+        std::cout << ", " << v;
+    });
+  }
+  std::cout << "]";
+
+
+  for(auto& v : vec) {
+    std::cout << v << ", ";
+  }
+  std::cout << "\n";
+
+  std::cout << "TOTAL = " << std::sqrt(std::accumulate(vec.begin(), vec.end(), 0, [](const auto& t, const auto& v){ return t+v*v;}));
+
   /*if(it != itEnd) {
     std::cout << "THERE IS SOMETHING IN THE LIBRARY\n";
   }*/

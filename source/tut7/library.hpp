@@ -1,6 +1,5 @@
 #include <memory>
 #include <vector>
-#include <list>
 #include <algorithm>
 #include <iostream>
 
@@ -46,8 +45,8 @@ class Library {
         ItemContainer(const T& item) : itemPtr{std::make_shared<T>(item)} {}
 
         const T& getItem() const { return *itemPtr; }
-        void addRelated(const ItemContainer& to, const U& desc);
         std::shared_ptr<T> getItemPtr() const { return itemPtr; }
+        void addRelated(const ItemContainer& to, const U& desc);
         void printRelated();
 
       private:
@@ -59,7 +58,7 @@ class Library {
           private:
             // private data members of RelatedWork
             U relatedWorkDescription;
-            std::shared_ptr<T> relatedWorkLink;
+            std::weak_ptr<T> relatedWorkLink;
         };
 
         // private data members of ItemContainer
@@ -349,5 +348,9 @@ Library<T,U>::ItemContainer::RelatedWork::RelatedWork(const ItemContainer& link,
 // method to print the item and description of a related work.
 template <typename T, typename U>
 void Library<T,U>::ItemContainer::RelatedWork::printItemAndDescription() {
-  std::cout << *(relatedWorkLink) << " - " << relatedWorkDescription << std::endl;
+  if(auto related = relatedWorkLink.lock()) {
+    std::cout << *(related) << " - " << relatedWorkDescription << std::endl;
+  } else {
+    std::cout << "MISSING: " << " - " << relatedWorkDescription << std::endl;
+  }
 }
