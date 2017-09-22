@@ -25,6 +25,7 @@ class Library {
     // mutators to change the contents of the library
     void add(const T& item);
     unsigned int remove(const T& item);
+    void erase(iterator&& newEnd, iterator&& end);
     void addRelated(const T& from, const T& to, const U& desc);
     void printRelated(const T& from);
     bool inLibrary(const T& item);
@@ -34,7 +35,8 @@ class Library {
     const_iterator cbegin() const;
     const_iterator cend() const;
 
-  private:
+  // private:
+  public:
 
     // private inner class to hold objects of type T in the library.
     class ItemContainer {
@@ -83,9 +85,12 @@ class LibraryItemIterator {
     typedef std::shared_ptr<T>                 pointer;
     typedef T&                                 reference;
 
+  private:
     typedef typename Library<T, U>::ItemContainer container;
     typedef typename std::vector<container>::iterator  IT;
+    IT curr;
 
+  public:
     reference operator*() const;
     pointer operator->() const { return &(operator*()); }
     LibraryItemIterator& operator++();
@@ -108,13 +113,13 @@ class LibraryItemIterator {
       return curr < r.curr;
     }
 
+    IT& getCurr() {
+      return curr;
+    }
+
     bool operator==(const LibraryItemIterator& other) const;
     bool operator!=(const LibraryItemIterator& other) const { return !operator==(other); }
 
-  private:
-    IT curr;
-
-  public:
     LibraryItemIterator(IT it): curr{it} {}
 };
 
@@ -177,9 +182,12 @@ class ConstLibraryItemIterator {
     typedef std::shared_ptr<value_type>        pointer;
     typedef value_type&                        reference;
 
+  private:
     typedef typename Library<const T, U>::ItemContainer container;
     typedef typename std::vector<container>::iterator  IT;
+    IT curr;
 
+  public:
     reference operator*() const;
     pointer operator->() const { return &(operator*()); }
     ConstLibraryItemIterator& operator++();
@@ -202,13 +210,13 @@ class ConstLibraryItemIterator {
       return curr < r.curr;
     }
 
+    IT& getCurr() {
+      return curr;
+    }
+
     bool operator==(const ConstLibraryItemIterator& other) const;
     bool operator!=(const ConstLibraryItemIterator& other) const { return !operator==(other); }
 
-  private:
-    IT curr;
-
-  public:
     ConstLibraryItemIterator(IT it): curr{it} {}
 };
 
@@ -216,19 +224,19 @@ class ConstLibraryItemIterator {
 
 template<typename T, typename U>
 ConstLibraryItemIterator<T, U> Library<T, U>::cbegin() const {
-  LibraryItemIterator<T, U> beg{items.begin()};
+  ConstLibraryItemIterator<T, U> beg(items.begin());
   return beg;
 }
 
 template<typename T, typename U>
 ConstLibraryItemIterator<T, U> Library<T, U>::cend() const {
-  LibraryItemIterator<T, U> end{items.end()};
+  ConstLibraryItemIterator<T, U> end(items.end());
   return end;
 }
 
 template<typename T, typename U>
 bool ConstLibraryItemIterator<T, U>::operator==(const ConstLibraryItemIterator<T, U>& other) const {
-  return curr == other.curr;
+  return getCurr() == other.getCurr();
 }
 
 template<typename T, typename U>
@@ -266,8 +274,9 @@ typename ConstLibraryItemIterator<T, U>::reference ConstLibraryItemIterator<T, U
 template <typename T, typename U>
 void Library<T,U>::add(const T& item) {
   if(std::find(begin(), end(), item) == end()) {
-    ItemContainer newItem{item};
-    items.push_back(newItem);
+    //ItemContainer newItem{item};
+    //items.push_back(newItem);
+    items.emplace_back(item);
     std::cout << item << " was added to the library\n";
   } else {
     std::cout << item << " is already in the library\n";
@@ -289,10 +298,15 @@ void Library<T,U>::addRelated(const T& from, const T& to, const U& desc) {
   fromIC->addRelated(*toIC, desc);
 }
 
+template <typename T, typename U>
+void Library<T,U>::erase(iterator&& newEnd, iterator&& end) {
+  items.erase(newEnd.getCurr(), end.getCurr());
+}
 // method to remove an item from the library.
 template <typename T, typename U>
 unsigned int Library<T,U>::remove(const T& t) {
-  items.erase(std::remove_if(items.begin(), items.end(), [&t](const Library<T,U>::ItemContainer& i){ return i.getItem() == t;}), items.end());
+  //items.erase(std::remove_if(items.begin(), items.end(), [&t](const Library<T,U>::ItemContainer& i){ return i.getItem() == t;}), items.end());
+  erase(std::remove_if(begin(), end(), [&t](const T& i){ return i == t;}), end());
   return static_cast<unsigned int>(items.size());
 }
 
