@@ -33,7 +33,6 @@
 
 # Build directory
 build/
-*.matt.*
 
 # Make trash
 cmake_install.cmake
@@ -42,3 +41,4 @@ CMakeFiles
 CMakeLists.txt
 CMakeCache
 CMakeCache.txt
+Makefile
